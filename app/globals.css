@@ -1,0 +1,186 @@
+/* app/globals.css
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Tailwind CSS v4 — Kinetic Playground Design System
+ * All theme tokens are defined here as CSS custom properties inside @theme.
+ * No tailwind.config.ts needed in v4.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+@import "tailwindcss";
+
+/* ── Google Fonts ────────────────────────────────────────────────────────────
+   Loaded here so they are available globally without a <link> in layout.tsx
+   (Next.js font optimization handles this in layout.tsx instead — see there)
+*/
+
+/* ── Design Token Overrides ──────────────────────────────────────────────────
+   @theme inline registers these as Tailwind utility classes.
+   e.g. `bg-primary`, `text-on-surface`, `rounded-xl`, `font-headline`
+*/
+@theme inline {
+
+  /* ── Kinetic Playground Color Palette ────────────────────────────────── */
+  --color-primary:                  #702ae1;
+  --color-primary-container:        #b28cff;
+  --color-primary-dim:              #6411d5;
+  --color-primary-fixed:            #b28cff;
+  --color-primary-fixed-dim:        #a67aff;
+  --color-inverse-primary:          #a476ff;
+  --color-on-primary:               #f8f0ff;
+  --color-on-primary-container:     #2e006c;
+  --color-on-primary-fixed:         #000000;
+  --color-on-primary-fixed-variant: #390083;
+
+  --color-secondary:                #6a5b00;
+  --color-secondary-container:      #fcdf46;
+  --color-secondary-dim:            #5c4f00;
+  --color-secondary-fixed:          #fcdf46;
+  --color-secondary-fixed-dim:      #edd139;
+  --color-on-secondary:             #fff3c5;
+  --color-on-secondary-container:   #5d5000;
+  --color-on-secondary-fixed:       #483d00;
+  --color-on-secondary-fixed-variant: #685900;
+
+  --color-tertiary:                 #00694b;
+  --color-tertiary-container:       #86ffcd;
+  --color-tertiary-dim:             #005b41;
+  --color-tertiary-fixed:           #86ffcd;
+  --color-tertiary-fixed-dim:       #77f0bf;
+  --color-on-tertiary:              #c7ffe3;
+  --color-on-tertiary-container:    #006146;
+  --color-on-tertiary-fixed:        #004d36;
+  --color-on-tertiary-fixed-variant: #006d4e;
+
+  --color-surface:                  #fef3ff;
+  --color-surface-bright:           #fef3ff;
+  --color-surface-dim:              #e8c9ff;
+  --color-surface-variant:          #edd3ff;
+  --color-surface-tint:             #702ae1;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low:    #faecff;
+  --color-surface-container:        #f5e2ff;
+  --color-surface-container-high:   #f1daff;
+  --color-surface-container-highest:#edd3ff;
+  --color-inverse-surface:          #180429;
+  --color-inverse-on-surface:       #ad93c0;
+
+  --color-background:               #fef3ff;
+  --color-on-background:            #3a264b;
+  --color-on-surface:               #3a264b;
+  --color-on-surface-variant:       #69537b;
+
+  --color-outline:                  #856e98;
+  --color-outline-variant:          #bda3d1;
+
+  --color-error:                    #b41340;
+  --color-error-container:          #f74b6d;
+  --color-error-dim:                #a70138;
+  --color-on-error:                 #ffefef;
+  --color-on-error-container:       #510017;
+
+  /* ── Border Radius — "Oversized" Kinetic Playground system ──────────── */
+  --radius-sm:   0.75rem;  /* 12px — minimum for inputs */
+  --radius-DEFAULT: 1rem;  /* 16px — default cards */
+  --radius-lg:   2rem;     /* 32px — large containers */
+  --radius-xl:   3rem;     /* 48px — feature cards, big CTAs */
+  --radius-full: 9999px;   /* pill / circular */
+
+  /* ── Typography ─────────────────────────────────────────────────────── */
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body:     "Be Vietnam Pro", sans-serif;
+  --font-label:    "Plus Jakarta Sans", sans-serif;
+
+  /* ── Shadows — Tinted ambient (purple undertone, not gray) ──────────── */
+  --shadow-soft: 0 20px 50px rgba(58, 38, 75, 0.04);
+  --shadow-card: 0 8px 30px rgba(58, 38, 75, 0.08);
+  --shadow-float: 0 25px 60px rgba(58, 38, 75, 0.12);
+  --shadow-glow-primary: 0 15px 30px rgba(112, 42, 225, 0.3);
+}
+
+/* ── Base Styles ─────────────────────────────────────────────────────────────
+   Apply Kinetic Playground defaults to the base HTML elements.
+*/
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+    min-height: 100dvh;
+  }
+
+  /* Never use pure black — always use on-surface tonal color */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+    color: var(--color-on-surface);
+  }
+
+  /* Remove default input borders — use tonal backgrounds instead */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(112, 42, 225, 0.15); /* Primary glow at 15% */
+  }
+}
+
+/* ── Utility Classes ─────────────────────────────────────────────────────────
+   Custom utilities that can't be expressed with Tailwind alone.
+*/
+@layer utilities {
+
+  /* Kinetic mesh background — used on leaderboard and auth pages */
+  .bg-kinetic-mesh {
+    background-color: #fef3ff;
+    background-image:
+      radial-gradient(at 0%   0%,   rgba(178, 140, 255, 0.20) 0px, transparent 55%),
+      radial-gradient(at 100% 0%,   rgba(252, 223,  70, 0.12) 0px, transparent 55%),
+      radial-gradient(at 100% 100%, rgba(112,  42, 225, 0.12) 0px, transparent 55%),
+      radial-gradient(at 0%   100%, rgba(  0, 105,  75, 0.06) 0px, transparent 55%);
+  }
+
+  /* Glass panel — frosted glassmorphism effect */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Gradient text — primary purple gradient */
+  .gradient-text {
+    background: linear-gradient(135deg, #702ae1, #b28cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Primary CTA gradient button background */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #702ae1, #b28cff);
+  }
+
+  /* Kinetic scale + shadow on hover — for interactive cards */
+  .kinetic-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .kinetic-hover:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 20px 50px rgba(58, 38, 75, 0.10);
+  }
+
+  /* "Ghost border" for when a boundary is strictly required (accessibility) */
+  .ghost-border {
+    box-shadow: inset 0 0 0 1px rgba(189, 163, 209, 0.20);
+  }
+}
